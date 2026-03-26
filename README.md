@@ -21,16 +21,6 @@ A web application that predicts Amazon product sales using a Random Forest Machi
 
 Model disimpan di Hugging Face Hub karena ukurannya yang besar (>100MB).
 
-### Upload Model ke Hugging Face
-
-1. Buat account di https://huggingface.co/join
-2. Buat access token di https://huggingface.co/settings/tokens (pilih permission "Write")
-3. Edit `upload_to_huggingface.py` dan ganti `REPO_ID` dengan username Anda
-4. Jalankan:
-```bash
-python upload_to_huggingface.py
-```
-
 ### Download Model
 
 1. Edit `download_model.py` dan pastikan `REPO_ID` sudah benar (saat ini: `dz4ic7/amazon-sales-predictor`)
