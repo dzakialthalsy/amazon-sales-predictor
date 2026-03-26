@@ -1,0 +1,74 @@
+================================================================================
+LINKEDIN POST - SHORT VERSION (Within Character Limit)
+================================================================================
+
+🚀 From Raw Data to Deployed ML Model: My Amazon Sales Prediction Project
+
+I'm excited to share my end-to-end Machine Learning project - a sales prediction system for e-commerce products on Amazon!
+
+📊 THE DATA
+• 703,966 rows from 7 different CSV files
+• 32 features: SKU codes, categories, sizes, colors, shipping details
+• Real-world messy data with missing values & inconsistent formats
+
+🧹 PREPROCESSING
+✓ Merged multiple data sources
+✓ Handled missing values across 9+ columns
+✓ Encoded categorical variables
+✓ Applied StandardScaler for normalization
+
+Final features (7): Stock, index_sales_int, PCS, RATE, GROSS AMT, Qty, ship-postal-code
+
+🤖 MODEL DEVELOPMENT
+Tested multiple algorithms: Linear Regression, Decision Tree, Random Forest, Gradient Boosting, CatBoost, XGBoost, LightGBM
+
+Winner: Random Forest Regressor
+• max_depth: 47
+• n_estimators: 88
+• Trained on 563K samples, tested on 140K samples
+
+🌐 WEB DEPLOYMENT
+Built a complete web app with:
+• Flask backend
+• Modern responsive UI
+• Real-time predictions
+• RESTful API endpoint
+• Model hosted on Hugging Face (895MB)
+
+💡 KEY CHALLENGES
+→ Model file (895MB) exceeded GitHub's 100MB limit
+✓ Solution: Hugging Face Hub with auto-download
+
+→ Multiple inconsistent data sources
+✓ Solution: Robust data pipeline with validation
+
+🎯 LESSONS LEARNED
+1. Real-world data is never clean (70% time on preprocessing)
+2. Deployment is as important as accuracy
+3. End-to-end projects teach 10x more than tutorials
+
+🔗 PROJECT LINKS
+GitHub: https://github.com/dzakialthalsy/amazon-sales-predictor
+Hugging Face: https://huggingface.co/dz4ic7/amazon-sales-predictor
+
+💬 Open for feedback and suggestions!
+
+#MachineLearning #DataScience #Python #Flask #RandomForest #MLOps #HuggingFace #AI #Portfolio
+
+================================================================================
+CHARACTER COUNT: ~1,300 characters (within LinkedIn limit)
+================================================================================
+
+📸 RECOMMENDED IMAGES (Carousel 4-5 slides):
+1. Web app screenshot (input form)
+2. Prediction result screenshot
+3. Model training code snippet
+4. GitHub repo screenshot
+5. Hugging Face model page screenshot
+
+📅 POSTING TIPS:
+• Post Tuesday-Thursday, 9-11 AM
+• Reply to comments within 24 hours
+• Pin to your profile
+
+================================================================================

@@ -37,7 +37,7 @@ Atau download manual dari: https://huggingface.co/dz4ic7/amazon-sales-predictor/
 
 1. Clone this repository:
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/dzakialthalsy/amazon-sales-predictor
 cd amazon-sales-predictor
 ```
 
