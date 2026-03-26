@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Sales Predictor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        input[type="number"]::placeholder {
+            color: #aaa;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .prediction-result {
+            margin-top: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .prediction-label {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .prediction-value {
+            color: #667eea;
+            font-size: 36px;
+            font-weight: 700;
+        }
+
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .info-box {
+            background: #e8f4f8;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+        }
+
+        .info-box p {
+            color: #555;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .feature-hint {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📦 Amazon Sales Predictor</h1>
+        <p class="subtitle">Predict product sales using Machine Learning</p>
+
+        {% if error %}
+        <div class="error-message">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        {% if prediction is defined and prediction is not none %}
+        <div class="prediction-result">
+            <p class="prediction-label">Predicted Sales</p>
+            <p class="prediction-value">{{ "%.2f"|format(prediction) }}</p>
+        </div>
+        {% endif %}
+
+        <div class="info-box">
+            <p><strong>Instructions:</strong> Fill in all the fields below with your product data. 
+            The model will predict the expected sales based on the input values.</p>
+        </div>
+
+        <form method="POST" action="/predict">
+            <div class="form-group">
+                <label for="Stock">Stock (Quantity in Stock)</label>
+                <input 
+                    type="number" 
+                    id="Stock" 
+                    name="Stock" 
+                    step="any" 
+                    required
+                    placeholder="Enter stock quantity"
+                    value="{{ input_values.get('Stock', '') if input_values else '' }}"
+                >
+                <p class="feature-hint">Current inventory stock level</p>
+            </div>
+
+            <div class="form-group">
+                <label for="index_sales_int">Index Sales Int (Sales Index)</label>
+                <input 
+                    type="number" 
+                    id="index_sales_int" 
+                    name="index_sales_int" 
+                    step="any" 
+                    required
+                    placeholder="Enter sales index"
+                    value="{{ input_values.get('index_sales_int', '') if input_values else '' }}"
+                >
+                <p class="feature-hint">Sales performance index</p>
+            </div>
+
+            <div class="form-group">
+                <label for="PCS">PCS (Pieces/Units)</label>
+                <input 
+                    type="number" 
+                    id="PCS" 
+                    name="PCS" 
+                    step="any" 
+                    required
+                    placeholder="Enter number of pieces"
+                    value="{{ input_values.get('PCS', '') if input_values else '' }}"
+                >
+                <p class="feature-hint">Number of product pieces/units</p>
+            </div>
+
+            <div class="form-group">
+                <label for="RATE">Rate (Price Rate)</label>
+                <input 
+                    type="number" 
+                    id="RATE" 
+                    name="RATE" 
+                    step="any" 
+                    required
+                    placeholder="Enter rate"
+                    value="{{ input_values.get('RATE', '') if input_values else '' }}"
+                >
+                <p class="feature-hint">Product price rate</p>
+            </div>
+
+            <div class="form-group">
+                <label for="GROSS AMT">Gross Amount</label>
+                <input 
+                    type="number" 
+                    id="GROSS AMT" 
+                    name="GROSS AMT" 
+                    step="any" 
+                    required
+                    placeholder="Enter gross amount"
+                    value="{{ input_values.get('GROSS AMT', '') if input_values else '' }}"
+                >
+                <p class="feature-hint">Total gross amount</p>
+            </div>
+
+            <div class="form-group">
+                <label for="Qty">Quantity</label>
+                <input 
+                    type="number" 
+                    id="Qty" 
+                    name="Qty" 
+                    step="any" 
+                    required
+                    placeholder="Enter quantity"
+                    value="{{ input_values.get('Qty', '') if input_values else '' }}"
+                >
+                <p class="feature-hint">Order/sales quantity</p>
+            </div>
+
+            <div class="form-group">
+                <label for="ship-postal-code">Ship Postal Code</label>
+                <input 
+                    type="number" 
+                    id="ship-postal-code" 
+                    name="ship-postal-code" 
+                    step="any" 
+                    required
+                    placeholder="Enter postal code"
+                    value="{{ input_values.get('ship-postal-code', '') if input_values else '' }}"
+                >
+                <p class="feature-hint">Shipping destination postal code</p>
+            </div>
+
+            <button type="submit" class="btn-submit">🔮 Predict Sales</button>
+        </form>
+    </div>
+</body>
+</html>
