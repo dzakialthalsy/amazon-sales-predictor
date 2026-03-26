@@ -150,13 +150,9 @@ This application can be deployed to:
 - Railway
 - Render
 
-## License
-
-MIT License
-
 ## Author
 
-Your Name
+Dzaki Althalsyah | dz4ic7
 
 ---
 
